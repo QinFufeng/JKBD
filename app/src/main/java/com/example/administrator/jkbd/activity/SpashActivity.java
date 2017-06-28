@@ -31,7 +31,7 @@ public class SpashActivity extends AppCompatActivity {
         public void onFinish() {
             Intent intent=new Intent(SpashActivity.this,MainActivity.class);
             startActivity(intent) ;
-            finish();
+            SpashActivity.this.finish();
             }
     };
 }
