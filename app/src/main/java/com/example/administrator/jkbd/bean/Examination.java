@@ -17,6 +17,8 @@ public class Examination {
     private int limitTime;
     private int questionCount;
 
+
+
     public String getSubjectTitle() {
         return subjectTitle;
     }
