@@ -33,6 +33,7 @@
             android:textColor="#000"
             android:textSize="20sp"/>
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="这个标题是何意义？"
@@ -41,6 +42,7 @@
 
     </LinearLayout>
     <ImageView
+        android:id="@+id/tv_im"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:src="@mipmap/aaas"
@@ -58,6 +60,7 @@
             android:textSize="20sp"
             android:layout_marginLeft="20sp"/>
         <TextView
+            android:id="@+id/tv_op1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="车道数变少"
@@ -78,6 +81,7 @@
             android:layout_marginLeft="20sp"
             android:textSize="20sp"/>
         <TextView
+            android:id="@+id/tv_op2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="车道数变少"
@@ -98,6 +102,7 @@
             android:textColor="#000"
             android:textSize="20sp"/>
         <TextView
+            android:id="@+id/tv_op3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="车道数变少"
@@ -118,6 +123,7 @@
             android:textColor="#000"
             android:textSize="20sp"/>
         <TextView
+            android:id="@+id/tv_op4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="车道数变少"
