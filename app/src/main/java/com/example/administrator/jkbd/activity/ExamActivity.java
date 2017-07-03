@@ -99,10 +99,7 @@ public class ExamActivity extends AppCompatActivity{
                 if (examination != null) {
                     showData(examination);
                 }
-                List<Question> mexamList = ExamApplication.getInstance().getMexamList();
-                if (mexamList != null) {
-                    showExam(mexamList);
-                }
+                showExam(biz.getQuestion());
             }
             else {
                 layoutLoading.setEnabled(true);
@@ -113,8 +110,7 @@ public class ExamActivity extends AppCompatActivity{
 
     }
 
-    private void showExam(List<Question> mexamList) {
-        Question exam=mexamList.get(0);
+    private void showExam(Question exam) {
         if(exam!=null){
             tvTitle.setText(exam.getQuestion());
             tvop1.setText(exam.getItem1());
