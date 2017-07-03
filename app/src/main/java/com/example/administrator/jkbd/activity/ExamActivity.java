@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -30,10 +31,11 @@ import java.util.List;
 
 public class ExamActivity extends AppCompatActivity{
     TextView tExamination,tvTitle,tvop1,tvop2,tvop3,tvop4,tvLoad,tvNo;
+    CheckBox cb01,cb02,cb03,cb04;
     ImageView im;
     IExamBiz biz;
     ProgressBar dialog;
-    LinearLayout layoutLoading;
+    LinearLayout layoutLoading,layout03,layout04;
     boolean iE=false;
     boolean iQ=false;
 
@@ -75,6 +77,8 @@ public class ExamActivity extends AppCompatActivity{
     private void initView() {
         dialog=(ProgressBar)findViewById(R.id.load_dialog);
         layoutLoading=(LinearLayout)findViewById(R.id.layout_loading);
+        layout03=(LinearLayout)findViewById(R.id.layout_03);
+        layout04=(LinearLayout)findViewById(R.id.layout_04);
         tExamination=(TextView) findViewById(R.id.exam_t);
         tvTitle=(TextView) findViewById(R.id.tv_title);
         tvNo= (TextView) findViewById(R.id.tv_exam_no);
@@ -82,6 +86,10 @@ public class ExamActivity extends AppCompatActivity{
         tvop2=(TextView) findViewById(R.id.tv_op2);
         tvop3=(TextView) findViewById(R.id.tv_op3);
         tvop4=(TextView) findViewById(R.id.tv_op4);
+        cb01= (CheckBox) findViewById(R.id.cb_01);
+        cb02= (CheckBox) findViewById(R.id.cb_02);
+        cb03= (CheckBox) findViewById(R.id.cb_03);
+        cb04= (CheckBox) findViewById(R.id.cb_04);
         im=(ImageView) findViewById(R.id.tv_im);
         tvLoad=(TextView)findViewById(R.id.tv_load);
         layoutLoading.setOnClickListener(new View.OnClickListener() {
@@ -119,13 +127,20 @@ public class ExamActivity extends AppCompatActivity{
             tvop1.setText(exam.getItem1());
             tvop2.setText(exam.getItem2());
             tvop3.setText(exam.getItem3());
-            tvop4.setText(exam.getItem4());
+            tvop4.setText(exam.getItem3());
+
+            layout03.setVisibility(exam.getItem3().equals("")?View.GONE:View.VISIBLE);
+            cb03.setVisibility(exam.getItem3().equals("")?View.GONE:View.VISIBLE);
+            layout04.setVisibility(exam.getItem4().equals("")?View.GONE:View.VISIBLE);
+            cb04.setVisibility(exam.getItem4().equals("")?View.GONE:View.VISIBLE);
+
             if(exam.getUrl()!=null && !exam.getUrl().equals("")) {
                 im.setVisibility(View.VISIBLE);
                 Picasso.with(ExamActivity.this).load(exam.getUrl()).into(im);
             }else{
                 im.setVisibility(View.GONE);
             }
+
         }
     }
 
