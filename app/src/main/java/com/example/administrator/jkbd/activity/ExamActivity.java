@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.jkbd.ExamApplication;
@@ -26,11 +28,15 @@ import java.util.List;
  */
 
 public class ExamActivity extends AppCompatActivity{
-    TextView tExamination,tvTitle,tvop1,tvop2,tvop3,tvop4;
+    TextView tExamination,tvTitle,tvop1,tvop2,tvop3,tvop4,tvLoad;
     ImageView im;
     IExamBiz biz;
+    LinearLayout layoutLoading;
     boolean iE=false;
     boolean iQ=false;
+
+    boolean iER=false;
+    boolean iQR=false;
 
     LoadExamBroadcast mLoadExamBroadcast;
     LoadQuestionBroadcast mLoadQuestionBroadcast;
@@ -62,6 +68,7 @@ public class ExamActivity extends AppCompatActivity{
     }
 
     private void initView() {
+        layoutLoading=(LinearLayout)findViewById(R.id.layout_loading);
         tExamination=(TextView) findViewById(R.id.exam_t);
         tvTitle=(TextView) findViewById(R.id.tv_title);
         tvop1=(TextView) findViewById(R.id.tv_op1);
@@ -69,19 +76,27 @@ public class ExamActivity extends AppCompatActivity{
         tvop3=(TextView) findViewById(R.id.tv_op3);
         tvop4=(TextView) findViewById(R.id.tv_op4);
         im=(ImageView) findViewById(R.id.tv_im);
+        tvLoad=(TextView)findViewById(R.id.tv_load);
     }
 
     private void initData() {
-        if(iE && iQ) {
-            Examination examination = ExamApplication.getInstance().getExamination();
-            if (examination != null) {
-                showData(examination);
+        if(iER && iQR){
+            if(iE && iQ) {
+                layoutLoading.setVisibility(View.GONE);
+                Examination examination = ExamApplication.getInstance().getExamination();
+                if (examination != null) {
+                    showData(examination);
+                }
+                List<Question> mexamList = ExamApplication.getInstance().getMexamList();
+                if (mexamList != null) {
+                    showExam(mexamList);
+                }
             }
-            List<Question> mexamList = ExamApplication.getInstance().getMexamList();
-            if (mexamList != null) {
-                showExam(mexamList);
+            else {
+                 tvLoad.setText("下载失败，点击重新下载");
             }
         }
+
     }
 
     private void showExam(List<Question> mexamList) {
@@ -121,6 +136,7 @@ public class ExamActivity extends AppCompatActivity{
             if(i){
                 iE=true;
             }
+            iER=true;
             initData();
         }
     }
@@ -134,6 +150,7 @@ public class ExamActivity extends AppCompatActivity{
             if(i){
                 iQ=true;
             }
+            iQR=true;
             initData();
         }
     }
