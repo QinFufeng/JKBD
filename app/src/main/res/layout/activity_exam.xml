@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     android:background="@mipmap/main">
     <LinearLayout
+        android:orientation="vertical"
         android:id="@+id/layout_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        >
         <ProgressBar
             android:id="@+id/load_dialog"
             android:layout_width="wrap_content"
@@ -47,6 +49,7 @@
         android:orientation="horizontal"
         android:layout_margin="5dp">
         <TextView
+            android:id="@+id/tv_exam_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1."
@@ -186,6 +189,7 @@
         android:drawableLeft="@mipmap/exam_pre32x32"
         android:background="@null"
         android:text="上一题"
+        android:onClick="preExam"
         android:layout_alignParentLeft="true"/>
         <Button
             android:id="@+id/bn_next"
@@ -194,6 +198,7 @@
             android:drawableLeft="@mipmap/exam_next32x32"
             android:background="@null"
             android:text="下一题"
+            android:onClick="nextExam"
             android:layout_alignParentRight="true"/>
         <Button
             android:layout_width="wrap_content"

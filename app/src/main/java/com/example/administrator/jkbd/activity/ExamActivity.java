@@ -29,7 +29,7 @@ import java.util.List;
  */
 
 public class ExamActivity extends AppCompatActivity{
-    TextView tExamination,tvTitle,tvop1,tvop2,tvop3,tvop4,tvLoad;
+    TextView tExamination,tvTitle,tvop1,tvop2,tvop3,tvop4,tvLoad,tvNo;
     ImageView im;
     IExamBiz biz;
     ProgressBar dialog;
@@ -77,6 +77,7 @@ public class ExamActivity extends AppCompatActivity{
         layoutLoading=(LinearLayout)findViewById(R.id.layout_loading);
         tExamination=(TextView) findViewById(R.id.exam_t);
         tvTitle=(TextView) findViewById(R.id.tv_title);
+        tvNo= (TextView) findViewById(R.id.tv_exam_no);
         tvop1=(TextView) findViewById(R.id.tv_op1);
         tvop2=(TextView) findViewById(R.id.tv_op2);
         tvop3=(TextView) findViewById(R.id.tv_op3);
@@ -111,13 +112,20 @@ public class ExamActivity extends AppCompatActivity{
     }
 
     private void showExam(Question exam) {
+        Log.e("showExam","showExam,exam="+exam);
         if(exam!=null){
+            tvNo.setText(biz.getExamIndex());
             tvTitle.setText(exam.getQuestion());
             tvop1.setText(exam.getItem1());
             tvop2.setText(exam.getItem2());
             tvop3.setText(exam.getItem3());
             tvop4.setText(exam.getItem4());
-            Picasso.with(ExamActivity.this).load(exam.getUrl()).into(im);
+            if(exam.getUrl()!=null && !exam.getUrl().equals("")) {
+                im.setVisibility(View.VISIBLE);
+                Picasso.with(ExamActivity.this).load(exam.getUrl()).into(im);
+            }else{
+                im.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -137,6 +145,15 @@ public class ExamActivity extends AppCompatActivity{
             unregisterReceiver(mLoadQuestionBroadcast);
         }
     }
+
+    public void preExam(View view) {
+        showExam(biz.preQuestion());
+    }
+
+    public void nextExam(View view) {
+        showExam(biz.nextQuestion());
+    }
+
     class LoadExamBroadcast extends BroadcastReceiver{
 
         @Override
