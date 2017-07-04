@@ -27,13 +27,15 @@ import com.example.administrator.jkbd.biz.IExamBiz;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Administrator on 2017/6/29.
  */
 
 public class ExamActivity extends AppCompatActivity{
-    TextView tExamination,tvTitle,tvop1,tvop2,tvop3,tvop4,tvLoad,tvNo;
+    TextView tExamination,tvTitle,tvop1,tvop2,tvop3,tvop4,tvLoad,tvNo,tvTime;
     CheckBox cb01,cb02,cb03,cb04;
     CheckBox[] cbs=new CheckBox[4];
     ImageView im;
@@ -79,6 +81,7 @@ public class ExamActivity extends AppCompatActivity{
     }
 
     private void initView() {
+        tvTime= (TextView) findViewById(R.id.tv_time);
         dialog=(ProgressBar)findViewById(R.id.load_dialog);
         layoutLoading=(LinearLayout)findViewById(R.id.layout_loading);
         layout03=(LinearLayout)findViewById(R.id.layout_03);
@@ -147,6 +150,7 @@ public class ExamActivity extends AppCompatActivity{
                 Examination examination = ExamApplication.getInstance().getExamination();
                 if (examination != null) {
                     showData(examination);
+                    initTime(examination);
                 }
                 showExam(biz.getQuestion());
             }
@@ -159,8 +163,28 @@ public class ExamActivity extends AppCompatActivity{
 
     }
 
+    private void initTime(Examination examination) {
+        int sunTime = examination.getLimitTime() * 60 * 1000;
+        final long overTime=sunTime+System.currentTimeMillis();
+        Timer timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                long l=overTime-System.currentTimeMillis();
+                final long min=l/1000/60;
+                final long sec=l/1000%60;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvTime.setText("剩余时间:"+min+"分"+sec+"秒");
+                    }
+                });
+            }
+        },0,1000);
+    }
+
     private void showExam(Question exam) {
-        Log.e("showExam","showExam,exam="+exam);
+        //Log.e("showExam","showExam,exam="+exam);
         if(exam!=null){
             tvNo.setText(biz.getExamIndex());
             tvTitle.setText(exam.getQuestion());

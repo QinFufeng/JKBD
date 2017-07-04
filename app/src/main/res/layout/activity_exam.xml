@@ -216,4 +216,11 @@
             android:layout_below="@+id/bn_next"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="shengyushijian:123321"
+        android:gravity="center_horizontal"
+        android:textColor="#000"/>
 </LinearLayout>
