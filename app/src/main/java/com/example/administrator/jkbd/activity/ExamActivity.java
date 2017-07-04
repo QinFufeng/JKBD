@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -24,6 +25,7 @@ import com.example.administrator.jkbd.bean.Examination;
 import com.example.administrator.jkbd.bean.Question;
 import com.example.administrator.jkbd.biz.ExamBiz;
 import com.example.administrator.jkbd.biz.IExamBiz;
+import com.example.administrator.jkbd.view.QuestionAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -39,6 +41,8 @@ public class ExamActivity extends AppCompatActivity{
     CheckBox cb01,cb02,cb03,cb04;
     CheckBox[] cbs=new CheckBox[4];
     ImageView im;
+    Gallery mGllery;
+    QuestionAdapter mAdepter;
     IExamBiz biz;
     ProgressBar dialog;
     LinearLayout layoutLoading,layout03,layout04;
@@ -97,6 +101,7 @@ public class ExamActivity extends AppCompatActivity{
         cb02= (CheckBox) findViewById(R.id.cb_02);
         cb03= (CheckBox) findViewById(R.id.cb_03);
         cb04= (CheckBox) findViewById(R.id.cb_04);
+        mGllery= (Gallery) findViewById(R.id.gallery);
         cbs[0]=cb01;
         cbs[1]=cb02;
         cbs[2]=cb03;
@@ -152,6 +157,7 @@ public class ExamActivity extends AppCompatActivity{
                     showData(examination);
                     initTime(examination);
                 }
+                initGallery();
                 showExam(biz.getQuestion());
             }
             else {
@@ -161,6 +167,11 @@ public class ExamActivity extends AppCompatActivity{
             }
         }
 
+    }
+
+    private void initGallery() {
+        mAdepter =new QuestionAdapter(this);
+        mGllery.setAdapter(mAdepter);
     }
 
     private void initTime(Examination examination) {
