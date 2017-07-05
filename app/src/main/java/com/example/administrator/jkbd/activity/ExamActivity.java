@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.ActionMenuItemView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,7 +29,6 @@ import com.example.administrator.jkbd.biz.IExamBiz;
 import com.example.administrator.jkbd.view.QuestionAdapter;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -242,7 +240,15 @@ public class ExamActivity extends AppCompatActivity{
             if(userAnswer!=null && !userAnswer.equals("")){
                 int userCB=Integer.parseInt(userAnswer)-1;
                 cbs[userCB].setChecked(true);
+                setOptions(true);
+            }else {
+                setOptions(false);
             }
+        }
+    }
+    private void setOptions(boolean hasAnswer){
+        for (CheckBox cb : cbs) {
+            cb.setEnabled(!hasAnswer);
         }
     }
 
