@@ -42,13 +42,10 @@ import butterknife.OnClick;
  */
 
 public class ExamActivity extends AppCompatActivity {
-    //TextView tExamination, tvNo;
-    //CheckBox cb01, cb02, cb03, cb04;
     CheckBox[] cbs = new CheckBox[4];
+    TextView[] tvOps=new TextView[4];
     QuestionAdapter mAdepter;
     IExamBiz biz;
-    //ProgressBar dialog;
-    //LinearLayout layoutLoading, layout03, layout04;
     boolean iE = false;
     boolean iQ = false;
 
@@ -131,6 +128,10 @@ public class ExamActivity extends AppCompatActivity {
         cbs[1] = cb02;
         cbs[2] = cb03;
         cbs[3] = cb04;
+        tvOps[0]=tvop1;
+        tvOps[1]=tvop2;
+        tvOps[2]=tvop3;
+        tvOps[3]=tvop4;
 //        im = (ImageView) findViewById(R.id.tv_im);
 //        tvLoad = (TextView) findViewById(R.id.tv_load);
         //layoutLoading.setOnClickListener(new View.OnClickListener() {
@@ -269,10 +270,36 @@ public class ExamActivity extends AppCompatActivity {
                 int userCB = Integer.parseInt(userAnswer) - 1;
                 cbs[userCB].setChecked(true);
                 setOptions(true);
+                setAnswerTextColor(userAnswer,exam.getAnswer());
             } else {
                 setOptions(false);
+                setOptionColor();
             }
         }
+    }
+
+    private void setOptionColor() {
+        for (TextView tvOp : tvOps) {
+            tvOp.setTextColor(getResources().getColor(R.color.blanck));
+        }
+    }
+
+    private void setAnswerTextColor(String userAnswer, String answer) {
+        int ra=Integer.parseInt(answer)-1;
+        for (int i = 0; i < tvOps.length; i++) {
+            if(i==ra){
+                tvOps[i].setTextColor(getResources().getColor(R.color.green));
+            }
+            else {
+                if((Integer.parseInt(userAnswer)-1)==i && !userAnswer.equals(answer)){
+                    //int ua=Integer.parseInt(userAnswer)-1;
+                    tvOps[i].setTextColor(getResources().getColor(R.color.red));
+                }else{
+                    tvOps[i].setTextColor(getResources().getColor(R.color.blanck));
+                }
+            }
+        }
+
     }
 
     private void setOptions(boolean hasAnswer) {
