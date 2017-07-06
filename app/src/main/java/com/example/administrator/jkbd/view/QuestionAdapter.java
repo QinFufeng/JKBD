@@ -57,4 +57,5 @@ public class QuestionAdapter extends BaseAdapter {
         this.mContext = mContext;
         examList= ExamApplication.getInstance().getMexamList();
     }
+
 }

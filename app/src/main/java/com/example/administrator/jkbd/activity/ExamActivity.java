@@ -43,7 +43,7 @@ import butterknife.OnClick;
 
 public class ExamActivity extends AppCompatActivity {
     CheckBox[] cbs = new CheckBox[4];
-    TextView[] tvOps=new TextView[4];
+    TextView[] tvOps = new TextView[4];
     QuestionAdapter mAdepter;
     IExamBiz biz;
     boolean iE = false;
@@ -55,26 +55,50 @@ public class ExamActivity extends AppCompatActivity {
     LoadExamBroadcast mLoadExamBroadcast;
     LoadQuestionBroadcast mLoadQuestionBroadcast;
 
-    @BindView(R.id.load_dialog)    ProgressBar dialog;
-    @BindView(R.id.tv_load)    TextView tvLoad;
-    @BindView(R.id.layout_loading)    LinearLayout layoutLoading;
-    @BindView(R.id.exam_t)    TextView tExamination;
-    @BindView(R.id.tv_exam_no)    TextView tvNo;
-    @BindView(R.id.tv_title)    TextView tvTitle;
-    @BindView(R.id.tv_im)    ImageView im;
-    @BindView(R.id.tv_op1)    TextView tvop1;
-    @BindView(R.id.tv_op2)    TextView tvop2;
-    @BindView(R.id.tv_op3)    TextView tvop3;
-    @BindView(R.id.layout_03)    LinearLayout layout03;
-    @BindView(R.id.tv_op4)    TextView tvop4;
-    @BindView(R.id.layout_04)    LinearLayout layout04;
-    @BindView(R.id.cb_01)    CheckBox cb01;
-    @BindView(R.id.cb_02)    CheckBox cb02;
-    @BindView(R.id.cb_03)    CheckBox cb03;
-    @BindView(R.id.cb_04)    CheckBox cb04;
-    @BindView(R.id.gallery)    Gallery mGllery;
-    @BindView(R.id.bn_next)    Button bnNext;
-    @BindView(R.id.tv_time)    TextView tvTime;
+    @BindView(R.id.load_dialog)
+    ProgressBar dialog;
+    @BindView(R.id.tv_load)
+    TextView tvLoad;
+    @BindView(R.id.layout_loading)
+    LinearLayout layoutLoading;
+    @BindView(R.id.exam_t)
+    TextView tExamination;
+    @BindView(R.id.tv_exam_no)
+    TextView tvNo;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_im)
+    ImageView im;
+    @BindView(R.id.tv_op1)
+    TextView tvop1;
+    @BindView(R.id.tv_op2)
+    TextView tvop2;
+    @BindView(R.id.tv_op3)
+    TextView tvop3;
+    @BindView(R.id.layout_03)
+    LinearLayout layout03;
+    @BindView(R.id.tv_op4)
+    TextView tvop4;
+    @BindView(R.id.layout_04)
+    LinearLayout layout04;
+    @BindView(R.id.cb_01)
+    CheckBox cb01;
+    @BindView(R.id.cb_02)
+    CheckBox cb02;
+    @BindView(R.id.cb_03)
+    CheckBox cb03;
+    @BindView(R.id.cb_04)
+    CheckBox cb04;
+    @BindView(R.id.gallery)
+    Gallery mGllery;
+    @BindView(R.id.bn_next)
+    Button bnNext;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.tv_analysis)
+    TextView tvAnalysis;
+    @BindView(R.id.Tanalysis)
+    LinearLayout TAnalysis;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,10 +152,10 @@ public class ExamActivity extends AppCompatActivity {
         cbs[1] = cb02;
         cbs[2] = cb03;
         cbs[3] = cb04;
-        tvOps[0]=tvop1;
-        tvOps[1]=tvop2;
-        tvOps[2]=tvop3;
-        tvOps[3]=tvop4;
+        tvOps[0] = tvop1;
+        tvOps[1] = tvop2;
+        tvOps[2] = tvop3;
+        tvOps[3] = tvop4;
 //        im = (ImageView) findViewById(R.id.tv_im);
 //        tvLoad = (TextView) findViewById(R.id.tv_load);
         //layoutLoading.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +169,9 @@ public class ExamActivity extends AppCompatActivity {
         cb03.setOnCheckedChangeListener(listener);
         cb04.setOnCheckedChangeListener(listener);
     }
-    @OnClick(R.id.layout_loading) void onLoadCilck(){
+
+    @OnClick(R.id.layout_loading)
+    void onLoadCilck() {
         loadData();
     }
 
@@ -258,6 +284,8 @@ public class ExamActivity extends AppCompatActivity {
             layout04.setVisibility(exam.getItem4().equals("") ? View.GONE : View.VISIBLE);
             cb04.setVisibility(exam.getItem4().equals("") ? View.GONE : View.VISIBLE);
 
+            TAnalysis.setVisibility(View.GONE);
+
             if (exam.getUrl() != null && !exam.getUrl().equals("")) {
                 im.setVisibility(View.VISIBLE);
                 Picasso.with(ExamActivity.this).load(exam.getUrl()).into(im);
@@ -267,10 +295,12 @@ public class ExamActivity extends AppCompatActivity {
             resetOptions();
             String userAnswer = exam.getUserAnswer();
             if (userAnswer != null && !userAnswer.equals("")) {
+                TAnalysis.setVisibility(View.VISIBLE);
+                tvAnalysis.setText(exam.getExplains());
                 int userCB = Integer.parseInt(userAnswer) - 1;
                 cbs[userCB].setChecked(true);
                 setOptions(true);
-                setAnswerTextColor(userAnswer,exam.getAnswer());
+                setAnswerTextColor(userAnswer, exam.getAnswer());
             } else {
                 setOptions(false);
                 setOptionColor();
@@ -285,16 +315,15 @@ public class ExamActivity extends AppCompatActivity {
     }
 
     private void setAnswerTextColor(String userAnswer, String answer) {
-        int ra=Integer.parseInt(answer)-1;
+        int ra = Integer.parseInt(answer) - 1;
         for (int i = 0; i < tvOps.length; i++) {
-            if(i==ra){
+            if (i == ra) {
                 tvOps[i].setTextColor(getResources().getColor(R.color.green));
-            }
-            else {
-                if((Integer.parseInt(userAnswer)-1)==i && !userAnswer.equals(answer)){
+            } else {
+                if ((Integer.parseInt(userAnswer) - 1) == i && !userAnswer.equals(answer)) {
                     //int ua=Integer.parseInt(userAnswer)-1;
                     tvOps[i].setTextColor(getResources().getColor(R.color.red));
-                }else{
+                } else {
                     tvOps[i].setTextColor(getResources().getColor(R.color.blanck));
                 }
             }
@@ -351,8 +380,9 @@ public class ExamActivity extends AppCompatActivity {
         saveUserAnswer();
         showExam(biz.nextQuestion());
     }
+
     public void commit(View view) {
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("交卷")
                 .setMessage("你还有时间，确认交卷么？")
                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -364,6 +394,7 @@ public class ExamActivity extends AppCompatActivity {
         builder.create().show();
 
     }
+
     public void commit() {
         saveUserAnswer();
         int s = biz.commitExam();

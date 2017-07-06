@@ -195,6 +195,31 @@
             android:layout_marginLeft="15dp"
             android:text="D"/>
     </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Tanalysis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="答案解析:"
+                    android:layout_marginLeft="20sp"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:layout_margin="5sp"/>
+                <TextView
+                    android:id="@+id/tv_analysis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="车道数变少"
+                    android:textColor="#000"
+                    android:textSize="15sp"
+                    android:layout_margin="5sp"/>
+            </LinearLayout>
+
     <Gallery
         android:id="@+id/gallery"
         android:spacing="10dp"
