@@ -236,7 +236,7 @@ public class ExamActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        commit(null);
+                        commit();
                     }
                 });
             }
