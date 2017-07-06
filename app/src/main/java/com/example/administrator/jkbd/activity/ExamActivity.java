@@ -351,8 +351,20 @@ public class ExamActivity extends AppCompatActivity {
         saveUserAnswer();
         showExam(biz.nextQuestion());
     }
-
     public void commit(View view) {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("交卷")
+                .setMessage("你还有时间，确认交卷么？")
+                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        commit();
+                    }
+                }).setNegativeButton("取消", null);
+        builder.create().show();
+
+    }
+    public void commit() {
         saveUserAnswer();
         int s = biz.commitExam();
 
@@ -369,6 +381,7 @@ public class ExamActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+        builder.setCancelable(false);
         builder.create().show();
     }
 
